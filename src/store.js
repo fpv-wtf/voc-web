@@ -13,7 +13,10 @@ export default new Vuex.Store({
     return {
       device: null,
       jmuxer: null,
-      status: null
+      status: null,
+      readSize: 4096
+      //windows is happy with 20k, chrome on os x only likes powers of 2 but seems okay with 8192, android sort of works at 406
+      //512, which is the official packetSize, lags everywhere
     }
   },
   getters: {
@@ -37,6 +40,9 @@ export default new Vuex.Store({
   mutations: {
     setDevice (state, device) {
         state.device = device
+    },
+    setReadSize (state, size) {
+        state.readSize = size
     },
     setStatus (state, status) {
         state.satus = status
@@ -99,6 +105,7 @@ export default new Vuex.Store({
             return state.device.claimInterface(3)
         })
         .then(() => {
+            //commit('setReadSize', state.device.configuration.interfaces[3].alternate.endpoints[1].packetSize)
             console.log("sending magic packet")
             state.device.transferOut(3, MAGIC)
             //cheap way of ignoring the promise in case the goggles are already steaming
@@ -119,8 +126,11 @@ export default new Vuex.Store({
         })
     },
     pollForPackets ({ dispatch, state }) {
-        return state.device.transferIn(4, 20000)
+        return state.device.transferIn(4, state.readSize)
         .then((response) => {
+            if(response.status !== "ok") {
+                console.log(response)
+            }
             state.jmuxer.feed({
                 video: new Uint8Array(response.data.buffer)
             })

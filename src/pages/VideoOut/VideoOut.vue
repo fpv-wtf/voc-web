@@ -52,6 +52,10 @@ export default {
   },
   mounted () {
     this.$store.dispatch('softboot')
+    navigator.usb.addEventListener('connect', () => {
+      this.$store.dispatch('softboot')
+    });
+
   },
   computed: {
     ...mapGetters([
