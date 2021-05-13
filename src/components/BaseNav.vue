@@ -31,7 +31,6 @@
     </nav>
 </template>
 <script>
-import { FadeTransition } from "vue2-transitions";
 import NavbarToggleButton from "./NavbarToggleButton";
 
 export default {
