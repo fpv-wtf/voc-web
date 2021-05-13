@@ -9,9 +9,15 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "vue": "^2.6.11"
+    "jmuxer": "^2.0.1",
+    "vue": "^2.6.11",
+    "vue-router": "^3.5.1",
+    "vue2-transitions": "^0.3.0",
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
+    "node-sass": "^6.0.0",
+    "sass-loader": "@10.2.0",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-service": "~4.5.0",

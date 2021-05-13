@@ -1,28 +1,24 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <notifications></notifications>
+    <router-view :key="$route.fullPath"></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  methods: {
+    toggleNavOpen() {
+      let root = document.getElementsByTagName('html')[0];
+      root.classList.toggle('nav-open');
+    }
+  },
+  mounted() {
+    this.$watch('$sidebar.showSidebar', this.toggleNavOpen)
+  },
+  
+};
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style lang="scss"></style>
