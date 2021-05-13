@@ -1,5 +1,5 @@
 <template>
-<div class="row">
+<div v-if="usbSupported" class="row">
     <div class="col-md-6 col-lg-6 col-xl-8">
       <card>
         <video ref="player" v-on:dblclick="toggleFullscreen" v-on:click="boot" style="" autoplay poster="img/video-poster.svg" id="player"></video>
@@ -31,7 +31,13 @@
       </card>
     </div>
   </div>
-  
+  <div v-else class="row">
+    <card>
+        <h2>WebUSB not supported</h2>
+        <p>Try using Chrome (including Android) or Edge.</p>
+        <p>Or chill out with the Kiff.</p><iframe width="560" height="315" src="https://www.youtube.com/embed/CAyWN9ba9J8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </card>
+  </div>
 </template>
 
 
@@ -50,6 +56,7 @@ export default {
   computed: {
     ...mapGetters([
         "deviceInfo",
+        "usbSupported"
     ])
   },
   data() {

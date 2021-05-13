@@ -17,6 +17,9 @@ export default new Vuex.Store({
     }
   },
   getters: {
+    usbSupported() {
+        return navigator.usb ? true : false
+    },
     device(state) {
         return state.device;
     },
